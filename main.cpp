@@ -145,7 +145,6 @@ char *load_script(const char *filename, int offset) {
 
 int main(int argc, char **argv) {
 #ifdef DEBUG
-
     FILE *log_fp = fopen("debug.log", "w");
     log_add_fp(log_fp, LOG_TRACE);
 #endif
@@ -166,7 +165,9 @@ int main(int argc, char **argv) {
     }
     char *script = load_script(path, JS_READ_OFFSET);
     if (script == nullptr) {
-        if (strstr(mjs_get_current_path(), mjs_get_tmp_dir()) != nullptr) {
+        log_info("Current path:%s", mjs_get_current_path());
+        if (strstr(mjs_get_current_path(), mjs_get_tmp_dir()) != nullptr ||
+            strstr(mjs_get_current_path(), "system32") != nullptr) {
 #ifdef _WIN32
             MessageBox(nullptr, TIP_MSG, TIP_TITLE, MB_OK | MB_ICONWARNING);
 #else

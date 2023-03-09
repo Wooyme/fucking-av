@@ -88,22 +88,21 @@ char *mjs_get_current_path() {
 
 void mjs_copy(const char *src, const char *dest) {
     FILE *source_file, *dest_file;
-    char ch;
     source_file = fopen(src, "rb");
     if (source_file == nullptr) {
-        perror("fopen source_file");
-        exit(EXIT_FAILURE);
+        log_info("fopen source_file");
+        return;
     }
     dest_file = fopen(dest, "wb");
-    if (dest_file == NULL) {
-        perror("fopen destination_file");
-        exit(EXIT_FAILURE);
+    if (dest_file == nullptr) {
+        log_info("fopen destination_file");
+        return;
     }
     char buffer[4096];
     size_t read_size;
     while ((read_size = fread(buffer, 1, sizeof(buffer), source_file)) > 0) {
         if (fwrite(buffer, 1, read_size, dest_file) != read_size) {
-            printf("Failed to write to destination file.\n");
+            log_info("Failed to write to destination file.\n");
             fclose(source_file);
             fclose(dest_file);
             return;
@@ -112,5 +111,5 @@ void mjs_copy(const char *src, const char *dest) {
     }
     fclose(source_file);
     fclose(dest_file);
-    printf("File copied successfully.\n");
+    log_info("File copied successfully.\n");
 }
