@@ -1,0 +1,7 @@
+*/cmake-/
+tmp/
+payload/payload.shc.exe
+utils/payload_auto_test.py
+release/
+# Project exclude paths
+/cmake-build-minsizerel/
