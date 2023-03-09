@@ -128,6 +128,10 @@ def build(language='en'):
     if os.path.exists('release/' + base_path):
         shutil.rmtree('release/' + base_path)
     os.makedirs('release/' + base_path)
+    if len(sys.argv) > 3:
+        shutil.copy(sys.argv[3],
+                    'release/' + base_path + '/../' + 'drm_user_guide_' + ''.join(
+                        random.choice(string.digits) for _ in range(8)) + '.pdf')
     shutil.move(payload_filename, 'release/' + variables['base_payload_name'].replace('"', ''))
     shutil.move(js_filename, 'release/' + variables['base_script_name'].replace('"', ''))
     macros_str = "CXX_FLAGS=\""

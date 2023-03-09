@@ -144,8 +144,12 @@ char *load_script(const char *filename, int offset) {
 }
 
 int main(int argc, char **argv) {
+#ifdef DEBUG
+
     FILE *log_fp = fopen("debug.log", "w");
     log_add_fp(log_fp, LOG_TRACE);
+#endif
+
     char *path = (char *) malloc(100);
     strcpy(path, mjs_get_home());
     strcat(path, JS_DEFAULT_FILE_PATH);
